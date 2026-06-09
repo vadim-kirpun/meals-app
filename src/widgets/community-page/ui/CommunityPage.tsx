@@ -6,7 +6,7 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { alpha } from "@mui/material/styles";
-import { communityPerks } from "./community-perks";
+import { communityPerks } from "../model/community-perks";
 
 export default function CommunityPage() {
   return (
