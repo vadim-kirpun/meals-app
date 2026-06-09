@@ -1,48 +1,18 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { alpha } from "@mui/material/styles";
-import type { SxProps, Theme } from "@mui/material/styles";
+import { NavLink } from "@/src/shared/ui/nav-link";
 
 const navItems = [
   { href: "/meals", label: "Browse Meals" },
   { href: "/community", label: "Foodies Community" },
 ] as const;
 
-function getNavLinkSx(isActive: boolean): SxProps<Theme> {
-  return (theme) => ({
-    color: isActive ? theme.palette.primary.main : theme.palette.text.secondary,
-    fontFamily: theme.typography.fontFamily,
-    fontWeight: theme.typography.fontWeightBold,
-    fontSize: "0.95rem",
-    letterSpacing: "0.02em",
-    textTransform: "none",
-    px: 2,
-    py: 1,
-    backgroundImage: isActive
-      ? `linear-gradient(90deg, ${alpha(theme.palette.secondary.main, 0.2)}, ${alpha(theme.palette.primary.main, 0.15)})`
-      : "none",
-    transition: theme.transitions.create(["color", "background-image"], {
-      duration: theme.transitions.duration.shortest,
-    }),
-    "&:hover": {
-      color: theme.palette.primary.main,
-      backgroundImage: `linear-gradient(90deg, ${alpha(theme.palette.secondary.main, 0.15)}, ${alpha(theme.palette.primary.main, 0.1)})`,
-    },
-  });
-}
-
 export default function MainHeader() {
-  const pathname = usePathname();
-
   return (
     <Box sx={{ position: "relative" }}>
       <div className="absolute top-0 left-0 -z-10 h-[160px] w-full">
@@ -80,47 +50,33 @@ export default function MainHeader() {
         }}
       >
         <Toolbar sx={{ maxWidth: 1200, width: "100%", mx: "auto", gap: 2 }}>
-          <Box
-            component={Link}
-            href="/"
-            sx={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 1.5,
-              textDecoration: "none",
-              "&:hover": { opacity: 0.85 },
-            }}
-          >
-            <Image
-              src="/images/logo.png"
-              alt=""
-              width={40}
-              height={40}
-              priority
-            />
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <Box
+              sx={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 1.5,
+                "&:hover": { opacity: 0.85 },
+              }}
+            >
+              <Image
+                src="/images/logo.png"
+                alt=""
+                width={40}
+                height={40}
+                priority
+              />
 
-            <Typography component="span" variant="brandTitle">
-              NextLevel Food
-            </Typography>
-          </Box>
+              <Typography component="span" variant="brandTitle">
+                NextLevel Food
+              </Typography>
+            </Box>
+          </Link>
 
           <Stack direction="row" spacing={0.5} sx={{ ml: "auto" }}>
-            {navItems.map(({ href, label }) => {
-              const isActive =
-                pathname === href || pathname.startsWith(`${href}/`);
-
-              return (
-                <Button
-                  key={href}
-                  component={Link}
-                  href={href}
-                  aria-current={isActive ? "page" : undefined}
-                  sx={getNavLinkSx(isActive)}
-                >
-                  {label}
-                </Button>
-              );
-            })}
+            {navItems.map(({ href, label }) => (
+              <NavLink key={href} href={href} label={label} />
+            ))}
           </Stack>
         </Toolbar>
       </AppBar>

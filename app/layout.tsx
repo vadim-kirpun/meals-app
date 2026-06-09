@@ -31,7 +31,7 @@ export default function RootLayout({
       lang="en"
       className={`${quicksand.variable} ${montserrat.variable} font-sans`}
     >
-      <body className="m-0 bg-[#282c34]">
+      <body>
         <ThemeRegistry>
           <MainHeader />
           {children}
