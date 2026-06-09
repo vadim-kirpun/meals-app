@@ -45,10 +45,10 @@ export default function MainHeader() {
 
   return (
     <Box sx={{ position: "relative" }}>
-      <div className="absolute top-0 left-0 -z-10 h-[320px] w-full">
+      <div className="absolute top-0 left-0 -z-10 h-[160px] w-full">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
+          viewBox="0 0 1440 160"
           className="block h-auto w-full"
         >
           <defs>
@@ -66,7 +66,7 @@ export default function MainHeader() {
 
           <path
             fill="url(#gradient)"
-            d="M0,256L48,240C96,224,192,192,288,181.3C384,171,480,181,576,186.7C672,192,768,192,864,181.3C960,171,1056,149,1152,133.3C1248,117,1344,107,1392,101.3L1440,96L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
+            d="M0,128L48,120C96,112,192,96,288,91C384,85,480,91,576,93C672,96,768,96,864,91C960,85,1056,75,1152,67C1248,59,1344,53,1392,51L1440,48L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"
           />
         </svg>
       </div>
@@ -99,22 +99,7 @@ export default function MainHeader() {
               priority
             />
 
-            <Typography
-              component="span"
-              variant="h6"
-              sx={(theme) => ({
-                fontFamily: "var(--font-montserrat), sans-serif",
-                fontWeight: theme.typography.fontWeightBold,
-                fontSize: "1.25rem",
-                letterSpacing: "0.04em",
-                lineHeight: 1,
-                textTransform: "uppercase",
-                backgroundImage: `linear-gradient(90deg, ${theme.palette.secondary.main}, ${theme.palette.primary.main})`,
-                backgroundClip: "text",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              })}
-            >
+            <Typography component="span" variant="brandTitle">
               NextLevel Food
             </Typography>
           </Box>
