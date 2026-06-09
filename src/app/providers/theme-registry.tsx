@@ -5,7 +5,7 @@ import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
 import { useServerInsertedHTML } from "next/navigation";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import theme from "@/app/theme";
+import theme from "@/src/shared/config/theme";
 
 export default function ThemeRegistry({
   children,
