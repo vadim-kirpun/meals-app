@@ -1,7 +1,5 @@
+import { CommunityPage } from "@/src/widgets/community-page";
+
 export default function Community() {
-  return (
-    <div>
-      <h1>Community</h1>
-    </div>
-  );
+  return <CommunityPage />;
 }
