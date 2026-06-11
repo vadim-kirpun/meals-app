@@ -21,7 +21,7 @@ export async function getMeals(): Promise<Meal[]> {
 export function getMealBySlug(slug: string): MealDetails | undefined {
   const db = getDb();
 
-  return db
-    .prepare("SELECT * FROM meals WHERE slug = ?")
-    .get(slug) as MealDetails | undefined;
+  return db.prepare("SELECT * FROM meals WHERE slug = ?").get(slug) as
+    | MealDetails
+    | undefined;
 }
