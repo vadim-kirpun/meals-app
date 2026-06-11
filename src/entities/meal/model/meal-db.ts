@@ -3,6 +3,7 @@ import "server-only";
 import fs from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
+import slugify from "slugify";
 import { getDb } from "@/src/shared/lib/db";
 import { sanitizeInstructions } from "@/src/shared/lib/sanitize-instructions";
 import type { Meal, MealDetails } from "./types";
@@ -34,14 +35,6 @@ type CreateMealInput = {
   image: File;
 };
 
-function slugify(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "");
-}
-
 async function saveImage(image: File) {
   const bytes = Buffer.from(await image.arrayBuffer());
   const extension = image.type === "image/png" ? "png" : "jpg";
@@ -57,7 +50,7 @@ async function saveImage(image: File) {
 
 export async function createMeal(input: CreateMealInput) {
   const db = getDb({ readonly: false });
-  const baseSlug = slugify(input.title) || randomUUID();
+  const baseSlug = slugify(input.title, { lower: true, strict: true }) || randomUUID();
   let slug = baseSlug;
   let suffix = 1;
 
