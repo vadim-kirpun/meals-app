@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getMealBySlug } from "@/src/entities/meal/server";
+import { sanitizeInstructions } from "@/src/shared/lib/sanitize-instructions";
 import { MealDetailsPage } from "@/src/widgets/meal-details-page";
 
 type MealDetailsRouteProps = {
@@ -35,5 +36,12 @@ export default async function MealDetailsRoute({
     notFound();
   }
 
-  return <MealDetailsPage meal={meal} />;
+  return (
+    <MealDetailsPage
+      meal={{
+        ...meal,
+        instructions: sanitizeInstructions(meal.instructions),
+      }}
+    />
+  );
 }

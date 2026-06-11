@@ -130,7 +130,7 @@ export default function ShareMealPage() {
           <TextField
             name="instructions"
             label="Instructions"
-            placeholder="Describe the cooking steps"
+            placeholder="<ol><li>Boil water</li><li>Add pasta</li></ol>"
             fullWidth
             multiline
             minRows={6}
@@ -143,7 +143,10 @@ export default function ShareMealPage() {
               }))
             }
             error={Boolean(fieldErrors.instructions)}
-            helperText={fieldErrors.instructions}
+            helperText={
+              fieldErrors.instructions ??
+              "Supports basic HTML tags: p, br, ol, ul, li, strong, em, h2, h3, blockquote."
+            }
           />
 
           <FileDropzone error={fieldErrors.image} />

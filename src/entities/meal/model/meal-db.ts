@@ -4,6 +4,7 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import { randomUUID } from "node:crypto";
 import { getDb } from "@/src/shared/lib/db";
+import { sanitizeInstructions } from "@/src/shared/lib/sanitize-instructions";
 import type { Meal, MealDetails } from "./types";
 
 const MEAL_LIST_COLUMNS = "slug, title, image, summary, creator";
@@ -75,7 +76,7 @@ export async function createMeal(input: CreateMealInput) {
     title: input.title,
     image: imagePath,
     summary: input.summary,
-    instructions: input.instructions,
+    instructions: sanitizeInstructions(input.instructions),
     creator: input.creator,
     creator_email: input.creatorEmail,
   });

@@ -95,12 +95,25 @@ export default function MealDetailsPage({ meal }: MealDetailsPageProps) {
         titleId="meal-instructions-heading"
         headingSx={{ textAlign: "left", mb: 3 }}
       >
-        <Typography
-          variant="bodyMuted"
-          sx={{ whiteSpace: "pre-line", lineHeight: 1.8 }}
-        >
-          {meal.instructions.trim()}
-        </Typography>
+        <Box
+          component="div"
+          sx={{
+            color: "text.secondary",
+            lineHeight: 1.8,
+            "& p": { m: 0, mb: 1.5 },
+            "& p:last-child": { mb: 0 },
+            "& ol, & ul": { pl: 3, my: 1.5 },
+            "& li": { mb: 0.75 },
+            "& h2, & h3": { mt: 2, mb: 1, color: "text.primary" },
+            "& blockquote": {
+              m: 0,
+              pl: 2,
+              borderLeft: "3px solid",
+              borderColor: "divider",
+            },
+          }}
+          dangerouslySetInnerHTML={{ __html: meal.instructions }}
+        />
       </PageSection>
     </PageShell>
   );

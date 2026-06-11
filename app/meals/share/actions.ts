@@ -4,6 +4,10 @@ import { z } from "zod";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createMeal } from "@/src/entities/meal/server";
+import {
+  getInstructionsTextLength,
+  sanitizeInstructions,
+} from "@/src/shared/lib/sanitize-instructions";
 
 const MAX_IMAGE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = new Set(["image/jpeg", "image/png"]);
@@ -33,8 +37,16 @@ const shareMealSchema = z.object({
   instructions: z
     .string()
     .trim()
-    .min(30, "Instructions must contain at least 30 characters.")
-    .max(5000, "Instructions are too long (max 5000 characters)."),
+    .min(1, "Instructions are required.")
+    .max(10000, "Instructions are too long (max 10000 characters).")
+    .refine(
+      (value) => getInstructionsTextLength(value) >= 30,
+      "Instructions must contain at least 30 characters of text."
+    )
+    .refine(
+      (value) => getInstructionsTextLength(value) <= 5000,
+      "Instructions are too long (max 5000 characters of text)."
+    ),
 });
 
 export type ShareMealFormState = {
@@ -88,7 +100,7 @@ export async function shareMealAction(
   const slug = await createMeal({
     title: normalizedFields.title,
     summary: normalizedFields.summary,
-    instructions: normalizedFields.instructions,
+    instructions: sanitizeInstructions(normalizedFields.instructions),
     creator: normalizedFields.name,
     creatorEmail: normalizedFields.email.toLowerCase(),
     image,
