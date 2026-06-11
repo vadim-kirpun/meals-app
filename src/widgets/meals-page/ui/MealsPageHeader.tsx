@@ -2,28 +2,14 @@
 
 import Link from "next/link";
 import Button from "@mui/material/Button";
-import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
+import { PageHero } from "@/src/shared/ui/page-hero";
 
 export default function MealsPageHeader() {
   return (
-    <Stack
-      spacing={2}
-      sx={{
-        mb: { xs: 8, md: 10 },
-        alignItems: "center",
-        textAlign: "center",
-      }}
+    <PageHero
+      title="Browse Meals"
+      description="Explore our collection of community-shared recipes, organized by meal type."
     >
-      <Typography component="h1" variant="heroTitle">
-        Browse Meals
-      </Typography>
-
-      <Typography variant="lead" sx={{ maxWidth: 520 }}>
-        Explore our collection of community-shared recipes, organized by meal
-        type.
-      </Typography>
-
       <Button
         component={Link}
         href="/meals/share"
@@ -34,6 +20,6 @@ export default function MealsPageHeader() {
       >
         Share a Meal
       </Button>
-    </Stack>
+    </PageHero>
   );
 }

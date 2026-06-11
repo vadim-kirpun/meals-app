@@ -5,12 +5,7 @@ import type { Meal, MealDetails } from "./types";
 
 const MEAL_LIST_COLUMNS = "slug, title, image, summary, creator";
 
-// Remove after skeleton testing
-const MEALS_LOAD_DELAY_MS = 2_000;
-
 export async function getMeals(): Promise<Meal[]> {
-  await new Promise((resolve) => setTimeout(resolve, MEALS_LOAD_DELAY_MS));
-
   const db = getDb();
 
   return db

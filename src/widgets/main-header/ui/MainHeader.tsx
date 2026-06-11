@@ -2,20 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import { NavLink } from "@/src/shared/ui/nav-link";
-
-const navItems = [
-  { href: "/meals", label: "Browse Meals" },
-  { href: "/community", label: "Foodies Community" },
-] as const;
+import MainHeaderNav from "./MainHeaderNav";
 
 export default function MainHeader() {
   return (
     <Box sx={{ position: "relative" }}>
-      <div className="absolute top-0 left-0 -z-10 h-[160px] w-full">
+      <div className="absolute top-0 left-0 -z-10 h-[120px] w-full md:h-[160px]">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 160"
@@ -49,13 +43,23 @@ export default function MainHeader() {
           boxShadow: "none",
         }}
       >
-        <Toolbar sx={{ maxWidth: 1200, width: "100%", mx: "auto", gap: 2 }}>
-          <Link href="/" style={{ textDecoration: "none" }}>
+        <Toolbar
+          sx={{
+            maxWidth: 1200,
+            width: "100%",
+            mx: "auto",
+            gap: { xs: 1, sm: 2 },
+            px: { xs: 2, sm: 3 },
+            minHeight: { xs: 56, sm: 64 },
+          }}
+        >
+          <Link href="/" style={{ textDecoration: "none", minWidth: 0 }}>
             <Box
               sx={{
                 display: "inline-flex",
                 alignItems: "center",
-                gap: 1.5,
+                gap: { xs: 1, sm: 1.5 },
+                minWidth: 0,
                 "&:hover": { opacity: 0.85 },
               }}
             >
@@ -65,19 +69,25 @@ export default function MainHeader() {
                 width={40}
                 height={40}
                 priority
+                style={{ flexShrink: 0 }}
               />
 
-              <Typography component="span" variant="brandTitle">
+              <Typography
+                component="span"
+                variant="brandTitle"
+                sx={{
+                  fontSize: { xs: "0.85rem", sm: "1.25rem" },
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
                 NextLevel Food
               </Typography>
             </Box>
           </Link>
 
-          <Stack direction="row" spacing={0.5} sx={{ ml: "auto" }}>
-            {navItems.map(({ href, label }) => (
-              <NavLink key={href} href={href} label={label} />
-            ))}
-          </Stack>
+          <MainHeaderNav />
         </Toolbar>
       </AppBar>
     </Box>

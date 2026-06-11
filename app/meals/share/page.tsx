@@ -1,7 +1,10 @@
+import { PageHero } from "@/src/shared/ui/page-hero";
+import { PageShell } from "@/src/shared/ui/page-shell";
+
 export default function ShareMealPage() {
   return (
-    <div>
-      <h1>Share Meal</h1>
-    </div>
+    <PageShell>
+      <PageHero title="Share Meal" />
+    </PageShell>
   );
 }

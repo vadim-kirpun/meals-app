@@ -7,27 +7,27 @@ import { PageHero } from "@/src/shared/ui/page-hero";
 import { PageShell } from "@/src/shared/ui/page-shell";
 import { StatusBadge } from "@/src/shared/ui/status-badge";
 
-export default function NotFound() {
+export default function MealNotFound() {
   return (
     <PageShell>
       <PageCenteredContent>
         <StatusBadge>404</StatusBadge>
 
         <PageHero
-          title="Page not found"
-          description="The page you're looking for doesn't exist or may have been moved."
+          title="Meal not found"
+          description="This recipe doesn't exist or may have been removed from our collection."
           sx={{ mb: 0 }}
         />
 
         <Button
           component={Link}
-          href="/"
+          href="/meals"
           variant="contained"
           color="secondary"
           size="large"
           sx={{ mt: 1 }}
         >
-          Back to home
+          Back to all meals
         </Button>
       </PageCenteredContent>
     </PageShell>

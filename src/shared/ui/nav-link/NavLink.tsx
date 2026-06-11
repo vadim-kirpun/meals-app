@@ -32,9 +32,10 @@ function getNavLinkSx(isActive: boolean): SxProps<Theme> {
 type NavLinkProps = {
   href: string;
   label: string;
+  onClick?: () => void;
 };
 
-export default function NavLink({ href, label }: NavLinkProps) {
+export default function NavLink({ href, label, onClick }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === href || pathname.startsWith(`${href}/`);
 
@@ -42,6 +43,7 @@ export default function NavLink({ href, label }: NavLinkProps) {
     <Button
       component={Link}
       href={href}
+      onClick={onClick}
       aria-current={isActive ? "page" : undefined}
       sx={getNavLinkSx(isActive)}
     >
