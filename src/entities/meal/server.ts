@@ -1,1 +1,1 @@
-export { getMealBySlug, getMeals } from "./model/meal-db";
+export { createMeal, getMealBySlug, getMeals } from "./model/meal-db";

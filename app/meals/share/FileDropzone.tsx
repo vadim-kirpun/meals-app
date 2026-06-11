@@ -6,7 +6,11 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-export default function FileDropzone() {
+type FileDropzoneProps = {
+  error?: string;
+};
+
+export default function FileDropzone({ error }: FileDropzoneProps) {
   const [isDragActive, setIsDragActive] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
@@ -77,7 +81,11 @@ export default function FileDropzone() {
       sx={{
         p: 2.5,
         border: "1px dashed",
-        borderColor: isDragActive ? "primary.main" : "divider",
+        borderColor: error
+          ? "error.main"
+          : isDragActive
+            ? "primary.main"
+            : "divider",
         borderRadius: 2,
         backgroundColor: isDragActive ? "action.hover" : "background.default",
         transition: "border-color 0.2s ease, background-color 0.2s ease",
@@ -105,6 +113,12 @@ export default function FileDropzone() {
             {fileName ? `Selected: ${fileName}` : "Drag and drop PNG/JPG, up to 5MB"}
           </Typography>
         </Stack>
+
+        {error && (
+          <Typography variant="caption" color="error.main">
+            {error}
+          </Typography>
+        )}
 
         {previewSrc && (
           <Box
