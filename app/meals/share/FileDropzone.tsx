@@ -9,12 +9,31 @@ import Typography from "@mui/material/Typography";
 export default function FileDropzone() {
   const [isDragActive, setIsDragActive] = useState(false);
   const [fileName, setFileName] = useState<string | null>(null);
+  const [previewSrc, setPreviewSrc] = useState<string | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const setSelectedFile = (file: File | null) => {
+    setFileName(file?.name ?? null);
+
+    if (!file) {
+      setPreviewSrc(null);
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      setPreviewSrc(typeof reader.result === "string" ? reader.result : null);
+    };
+    reader.onerror = () => {
+      setPreviewSrc(null);
+    };
+    reader.readAsDataURL(file);
+  };
+
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] ?? null;
-    setFileName(file?.name ?? null);
+    setSelectedFile(file);
   };
 
   const handleDragEnter = (event: DragEvent<HTMLDivElement>) => {
@@ -46,7 +65,7 @@ export default function FileDropzone() {
     const dataTransfer = new DataTransfer();
     dataTransfer.items.add(file);
     inputRef.current.files = dataTransfer.files;
-    setFileName(file.name);
+    setSelectedFile(file);
   };
 
   return (
@@ -86,6 +105,24 @@ export default function FileDropzone() {
             {fileName ? `Selected: ${fileName}` : "Drag and drop PNG/JPG, up to 5MB"}
           </Typography>
         </Stack>
+
+        {previewSrc && (
+          <Box
+            component="img"
+            src={previewSrc}
+            alt="Selected meal preview"
+            sx={{
+              width: "100%",
+              maxWidth: 360,
+              maxHeight: 220,
+              objectFit: "cover",
+              borderRadius: 2,
+              border: "1px solid",
+              borderColor: "divider",
+              alignSelf: "flex-start",
+            }}
+          />
+        )}
       </Stack>
     </Box>
   );
